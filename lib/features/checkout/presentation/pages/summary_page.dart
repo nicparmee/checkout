@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../shared/format_price.dart';
+import '../../../authentication/presentation/bloc/auth_cubit.dart';
 import '../../../cart/presentation/bloc/cart_cubit.dart';
 import '../../../cart/presentation/widgets/add_to_cart_button.dart';
 
@@ -13,6 +14,7 @@ class SummaryPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final lines = context.watch<CartCubit>().state.values.toList();
     final total = context.select((CartCubit c) => c.totalCents);
+    final signedIn = context.watch<AuthCubit>().state;
     final text = Theme.of(context).textTheme;
 
     return Scaffold(
@@ -58,8 +60,10 @@ class SummaryPage extends StatelessWidget {
               FilledButton(
                 onPressed: lines.isEmpty
                     ? null
-                    : () => context.go('/order/123'),
-                child: const Text('Place order'),
+                    : signedIn
+                    ? () => context.go('/order/123')
+                    : () => context.push('/sign-in'),
+                child: Text(signedIn ? 'Place order' : 'Sign in to order'),
               ),
             ],
           ),
