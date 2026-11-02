@@ -167,6 +167,13 @@ const documentNodeQueryProducts = DocumentNode(
                   directives: [],
                   selectionSet: null,
                 ),
+                FieldNode(
+                  name: NameNode(value: 'priceCents'),
+                  alias: null,
+                  arguments: [],
+                  directives: [],
+                  selectionSet: null,
+                ),
               ],
             ),
           ),
@@ -297,6 +304,7 @@ class Query$Products$products {
     required this.name,
     required this.description,
     required this.imageUrl,
+    required this.priceCents,
   });
 
   factory Query$Products$products.fromJson(Map<String, dynamic> json) {
@@ -304,11 +312,13 @@ class Query$Products$products {
     final l$name = json['name'];
     final l$description = json['description'];
     final l$imageUrl = json['imageUrl'];
+    final l$priceCents = json['priceCents'];
     return Query$Products$products(
       id: (l$id as String),
       name: (l$name as String),
       description: (l$description as String),
       imageUrl: (l$imageUrl as String),
+      priceCents: (l$priceCents as int),
     );
   }
 
@@ -320,6 +330,8 @@ class Query$Products$products {
 
   final String imageUrl;
 
+  final int priceCents;
+
   Map<String, dynamic> toJson() {
     final _resultData = <String, dynamic>{};
     final l$id = id;
@@ -330,6 +342,8 @@ class Query$Products$products {
     _resultData['description'] = l$description;
     final l$imageUrl = imageUrl;
     _resultData['imageUrl'] = l$imageUrl;
+    final l$priceCents = priceCents;
+    _resultData['priceCents'] = l$priceCents;
     return _resultData;
   }
 
@@ -339,7 +353,14 @@ class Query$Products$products {
     final l$name = name;
     final l$description = description;
     final l$imageUrl = imageUrl;
-    return Object.hashAll([l$id, l$name, l$description, l$imageUrl]);
+    final l$priceCents = priceCents;
+    return Object.hashAll([
+      l$id,
+      l$name,
+      l$description,
+      l$imageUrl,
+      l$priceCents,
+    ]);
   }
 
   @override
@@ -370,6 +391,11 @@ class Query$Products$products {
     if (l$imageUrl != lOther$imageUrl) {
       return false;
     }
+    final l$priceCents = priceCents;
+    final lOther$priceCents = other.priceCents;
+    if (l$priceCents != lOther$priceCents) {
+      return false;
+    }
     return true;
   }
 }
@@ -388,7 +414,13 @@ abstract class CopyWith$Query$Products$products<TRes> {
   factory CopyWith$Query$Products$products.stub(TRes res) =
       _CopyWithStubImpl$Query$Products$products;
 
-  TRes call({String? id, String? name, String? description, String? imageUrl});
+  TRes call({
+    String? id,
+    String? name,
+    String? description,
+    String? imageUrl,
+    int? priceCents,
+  });
 }
 
 class _CopyWithImpl$Query$Products$products<TRes>
@@ -406,6 +438,7 @@ class _CopyWithImpl$Query$Products$products<TRes>
     Object? name = _undefined,
     Object? description = _undefined,
     Object? imageUrl = _undefined,
+    Object? priceCents = _undefined,
   }) => _then(
     Query$Products$products(
       id: id == _undefined || id == null ? _instance.id : (id as String),
@@ -418,6 +451,9 @@ class _CopyWithImpl$Query$Products$products<TRes>
       imageUrl: imageUrl == _undefined || imageUrl == null
           ? _instance.imageUrl
           : (imageUrl as String),
+      priceCents: priceCents == _undefined || priceCents == null
+          ? _instance.priceCents
+          : (priceCents as int),
     ),
   );
 }
@@ -428,6 +464,11 @@ class _CopyWithStubImpl$Query$Products$products<TRes>
 
   TRes _res;
 
-  call({String? id, String? name, String? description, String? imageUrl}) =>
-      _res;
+  call({
+    String? id,
+    String? name,
+    String? description,
+    String? imageUrl,
+    int? priceCents,
+  }) => _res;
 }

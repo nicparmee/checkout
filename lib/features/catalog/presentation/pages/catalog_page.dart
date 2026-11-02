@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
 import 'package:graphql/client.dart';
 
+import '../../../cart/presentation/widgets/cart_button.dart';
 import '../../data/datasources/catalog_remote_data_source.dart';
 import '../../data/repositories/catalog_repository_impl.dart';
 import '../bloc/catalog_cubit.dart';
@@ -22,12 +22,7 @@ class CatalogPage extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           title: const Text('Catalog'),
-          actions: [
-            TextButton(
-              onPressed: () => context.go('/summary'),
-              child: const Text('Go to summary'),
-            ),
-          ],
+          actions: const [CartButton()],
         ),
         body: BlocBuilder<CatalogCubit, CatalogState>(
           builder: (context, state) => switch (state) {

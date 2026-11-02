@@ -3,8 +3,9 @@ import 'package:checkout/app/router.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
-  testWidgets('deeplinks resolve and unknown paths fall back to catalog',
-      (tester) async {
+  testWidgets('deeplinks resolve and unknown paths fall back to catalog', (
+    tester,
+  ) async {
     await tester.pumpWidget(const App());
     expect(find.text('Catalog'), findsOneWidget);
 

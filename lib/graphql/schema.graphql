@@ -4,6 +4,8 @@ type Product {
   name: String!
   description: String!
   imageUrl: String!
+  # Integer cents to avoid float rounding on money.
+  priceCents: Int!
 }
 
 type Query {

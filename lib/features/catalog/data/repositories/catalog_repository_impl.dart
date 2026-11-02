@@ -17,6 +17,7 @@ class CatalogRepositoryImpl implements CatalogRepository {
             name: p.name,
             description: p.description,
             imageUrl: p.imageUrl,
+            priceCents: p.priceCents,
           ),
         )
         .toList();

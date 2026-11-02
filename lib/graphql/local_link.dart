@@ -34,17 +34,20 @@ const _products = [
     'name': 'Classic Tee',
     'description': 'Soft cotton t-shirt in a relaxed fit.',
     'imageUrl': 'https://picsum.photos/seed/tee/400/300',
+    'priceCents': 2500,
   },
   {
     'id': '2',
     'name': 'Canvas Tote',
     'description': 'Sturdy everyday bag with an inner pocket.',
     'imageUrl': 'https://picsum.photos/seed/tote/400/300',
+    'priceCents': 1800,
   },
   {
     'id': '3',
     'name': 'Ceramic Mug',
     'description': 'Holds 350ml. Dishwasher and microwave safe.',
     'imageUrl': 'https://picsum.photos/seed/mug/400/300',
+    'priceCents': 1200,
   },
 ];
