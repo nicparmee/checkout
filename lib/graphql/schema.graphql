@@ -1,0 +1,11 @@
+# Contract for the in-app data source (see local_link.dart).
+type Product {
+  id: ID!
+  name: String!
+  description: String!
+  imageUrl: String!
+}
+
+type Query {
+  products: [Product!]!
+}
