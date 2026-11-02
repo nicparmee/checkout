@@ -1,0 +1,34 @@
+fragment OrderFields on Order {
+  id
+  userId
+  items {
+    productId
+    quantity
+  }
+  scheduledAt
+  expiresAt
+  status
+  totalCents
+}
+
+query Order($id: ID!) {
+  order(id: $id) {
+    ...OrderFields
+  }
+}
+
+mutation CreateOrder(
+  $userId: ID!
+  $items: [OrderItemInput!]!
+  $scheduledAt: String!
+) {
+  createOrder(userId: $userId, items: $items, scheduledAt: $scheduledAt) {
+    ...OrderFields
+  }
+}
+
+mutation PayOrder($orderId: ID!, $cardToken: String!) {
+  payOrder(orderId: $orderId, cardToken: $cardToken) {
+    ...OrderFields
+  }
+}

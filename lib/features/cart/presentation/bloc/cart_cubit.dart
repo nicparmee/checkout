@@ -19,6 +19,8 @@ class CartCubit extends Cubit<Map<String, CartLine>> {
 
   void remove(Product product) => _set(product, quantityOf(product.id) - 1);
 
+  void clear() => emit(const {});
+
   void _set(Product product, int quantity) {
     final next = {...state};
     if (quantity <= 0) {

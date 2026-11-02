@@ -1,3 +1,159 @@
+class Input$OrderItemInput {
+  factory Input$OrderItemInput({
+    required String productId,
+    required int quantity,
+  }) =>
+      Input$OrderItemInput._({r'productId': productId, r'quantity': quantity});
+
+  Input$OrderItemInput._(this._$data);
+
+  factory Input$OrderItemInput.fromJson(Map<String, dynamic> data) {
+    final result$data = <String, dynamic>{};
+    final l$productId = data['productId'];
+    result$data['productId'] = (l$productId as String);
+    final l$quantity = data['quantity'];
+    result$data['quantity'] = (l$quantity as int);
+    return Input$OrderItemInput._(result$data);
+  }
+
+  Map<String, dynamic> _$data;
+
+  String get productId => (_$data['productId'] as String);
+
+  int get quantity => (_$data['quantity'] as int);
+
+  Map<String, dynamic> toJson() {
+    final result$data = <String, dynamic>{};
+    final l$productId = productId;
+    result$data['productId'] = l$productId;
+    final l$quantity = quantity;
+    result$data['quantity'] = l$quantity;
+    return result$data;
+  }
+
+  CopyWith$Input$OrderItemInput<Input$OrderItemInput> get copyWith =>
+      CopyWith$Input$OrderItemInput(this, (i) => i);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other is! Input$OrderItemInput || runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$productId = productId;
+    final lOther$productId = other.productId;
+    if (l$productId != lOther$productId) {
+      return false;
+    }
+    final l$quantity = quantity;
+    final lOther$quantity = other.quantity;
+    if (l$quantity != lOther$quantity) {
+      return false;
+    }
+    return true;
+  }
+
+  @override
+  int get hashCode {
+    final l$productId = productId;
+    final l$quantity = quantity;
+    return Object.hashAll([l$productId, l$quantity]);
+  }
+}
+
+abstract class CopyWith$Input$OrderItemInput<TRes> {
+  factory CopyWith$Input$OrderItemInput(
+    Input$OrderItemInput instance,
+    TRes Function(Input$OrderItemInput) then,
+  ) = _CopyWithImpl$Input$OrderItemInput;
+
+  factory CopyWith$Input$OrderItemInput.stub(TRes res) =
+      _CopyWithStubImpl$Input$OrderItemInput;
+
+  TRes call({String? productId, int? quantity});
+}
+
+class _CopyWithImpl$Input$OrderItemInput<TRes>
+    implements CopyWith$Input$OrderItemInput<TRes> {
+  _CopyWithImpl$Input$OrderItemInput(this._instance, this._then);
+
+  final Input$OrderItemInput _instance;
+
+  final TRes Function(Input$OrderItemInput) _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({Object? productId = _undefined, Object? quantity = _undefined}) =>
+      _then(
+        Input$OrderItemInput._({
+          ..._instance._$data,
+          if (productId != _undefined && productId != null)
+            'productId': (productId as String),
+          if (quantity != _undefined && quantity != null)
+            'quantity': (quantity as int),
+        }),
+      );
+}
+
+class _CopyWithStubImpl$Input$OrderItemInput<TRes>
+    implements CopyWith$Input$OrderItemInput<TRes> {
+  _CopyWithStubImpl$Input$OrderItemInput(this._res);
+
+  TRes _res;
+
+  call({String? productId, int? quantity}) => _res;
+}
+
+enum Enum$OrderStatus {
+  PENDING,
+  PROCESSING,
+  PAID,
+  FAILED,
+  EXPIRED,
+  $unknown;
+
+  factory Enum$OrderStatus.fromJson(String value) =>
+      fromJson$Enum$OrderStatus(value);
+
+  String toJson() => toJson$Enum$OrderStatus(this);
+}
+
+String toJson$Enum$OrderStatus(Enum$OrderStatus e) {
+  switch (e) {
+    case Enum$OrderStatus.PENDING:
+      return r'PENDING';
+    case Enum$OrderStatus.PROCESSING:
+      return r'PROCESSING';
+    case Enum$OrderStatus.PAID:
+      return r'PAID';
+    case Enum$OrderStatus.FAILED:
+      return r'FAILED';
+    case Enum$OrderStatus.EXPIRED:
+      return r'EXPIRED';
+    case Enum$OrderStatus.$unknown:
+      return r'$unknown';
+  }
+}
+
+Enum$OrderStatus fromJson$Enum$OrderStatus(String value) {
+  switch (value) {
+    case r'PENDING':
+      return Enum$OrderStatus.PENDING;
+    case r'PROCESSING':
+      return Enum$OrderStatus.PROCESSING;
+    case r'PAID':
+      return Enum$OrderStatus.PAID;
+    case r'FAILED':
+      return Enum$OrderStatus.FAILED;
+    case r'EXPIRED':
+      return Enum$OrderStatus.EXPIRED;
+    default:
+      return Enum$OrderStatus.$unknown;
+  }
+}
+
 enum Enum$__TypeKind {
   SCALAR,
   OBJECT,

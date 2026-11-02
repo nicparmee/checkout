@@ -10,4 +10,45 @@ type Product {
 
 type Query {
   products: [Product!]!
+  order(id: ID!): Order
+}
+
+enum OrderStatus {
+  PENDING
+  # Payment submitted; settles to PAID or FAILED.
+  PROCESSING
+  PAID
+  FAILED
+  EXPIRED
+}
+
+type OrderItem {
+  productId: ID!
+  quantity: Int!
+}
+
+type Order {
+  id: ID!
+  userId: ID!
+  items: [OrderItem!]!
+  # ISO-8601 UTC strings; avoids custom scalar codegen config.
+  scheduledAt: String!
+  expiresAt: String!
+  status: OrderStatus!
+  # Computed server side from product prices, never sent by the client.
+  totalCents: Int!
+}
+
+input OrderItemInput {
+  productId: ID!
+  quantity: Int!
+}
+
+type Mutation {
+  createOrder(
+    userId: ID!
+    items: [OrderItemInput!]!
+    scheduledAt: String!
+  ): Order!
+  payOrder(orderId: ID!, cardToken: String!): Order!
 }

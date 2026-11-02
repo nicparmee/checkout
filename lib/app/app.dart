@@ -16,7 +16,8 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return RepositoryProvider(
-      create: (_) => GraphQLClient(link: LocalLink(), cache: GraphQLCache()),
+      create: (_) =>
+          GraphQLClient(link: LocalLink(prefs), cache: GraphQLCache()),
       // Above the router so app-wide state outlives page navigation.
       child: MultiBlocProvider(
         providers: [
