@@ -4,6 +4,8 @@ import 'package:go_router/go_router.dart';
 import 'package:graphql/client.dart';
 
 import '../../../../shared/format_price.dart';
+import '../../../../shared/white_text_theme.dart';
+import '../../../cart/presentation/bloc/cart_cubit.dart';
 import '../../data/datasources/checkout_remote_data_source.dart';
 import '../../data/repositories/checkout_repository_impl.dart';
 import '../../domain/entities/order.dart';
@@ -29,15 +31,20 @@ class OrderPage extends StatelessWidget {
         ),
         orderId,
       )..add(OrderRequested()),
-      child: Scaffold(
-        appBar: AppBar(title: Text('Order $orderId')),
-        body: BlocBuilder<OrderBloc, OrderState>(
-          builder: (context, state) => switch (state) {
-            OrderLoading() => const Center(child: CircularProgressIndicator()),
-            OrderNotFound() => const Center(child: Text('Order not found')),
-            OrderError(:final message) => Center(child: Text(message)),
-            OrderLoaded() => _OrderDetails(state),
-          },
+      child: Theme(
+        data: whiteTextTheme(Theme.of(context)),
+        child: Scaffold(
+          appBar: AppBar(title: Text('Order $orderId')),
+          body: BlocBuilder<OrderBloc, OrderState>(
+            builder: (context, state) => switch (state) {
+              OrderLoading() => const Center(
+                child: CircularProgressIndicator(),
+              ),
+              OrderNotFound() => const Center(child: Text('Order not found')),
+              OrderError(:final message) => Center(child: Text(message)),
+              OrderLoaded() => _OrderDetails(state),
+            },
+          ),
         ),
       ),
     );
@@ -118,6 +125,8 @@ class _OrderDetailsState extends State<_OrderDetails> {
             const SizedBox(height: 16),
             DropdownButtonFormField<String>(
               initialValue: _cardToken,
+              // Dark menu so the white card labels stay readable.
+              dropdownColor: Colors.grey.shade800,
               decoration: const InputDecoration(
                 border: OutlineInputBorder(),
                 labelText: 'Saved card',
@@ -133,8 +142,11 @@ class _OrderDetailsState extends State<_OrderDetails> {
             FilledButton(
               onPressed: _cardToken == null
                   ? null
-                  : () =>
-                        context.read<OrderBloc>().add(PayPressed(_cardToken!)),
+                  : () {
+                      // The order holds the items now, so the cart can go.
+                      context.read<CartCubit>().clear();
+                      context.read<OrderBloc>().add(PayPressed(_cardToken!));
+                    },
               child: Text(
                 'Pay ${formatPrice(order.totalCents)} and confirm order',
               ),

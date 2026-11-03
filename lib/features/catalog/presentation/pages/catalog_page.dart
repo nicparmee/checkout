@@ -23,6 +23,7 @@ class CatalogPage extends StatelessWidget {
         appBar: AppBar(
           title: const Text('Catalog'),
           actions: const [CartButton()],
+          actionsPadding: const EdgeInsets.only(right: 24),
         ),
         body: BlocBuilder<CatalogCubit, CatalogState>(
           builder: (context, state) => switch (state) {

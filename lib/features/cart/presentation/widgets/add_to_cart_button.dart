@@ -18,32 +18,46 @@ class AddToCartButton extends StatelessWidget {
     if (quantity == 0) {
       return FilledButton.tonalIcon(
         onPressed: () => cart.add(product),
-        icon: const Icon(Icons.add_shopping_cart),
         label: const Text('Add'),
+        icon: const Icon(Icons.add),
+        iconAlignment: IconAlignment.end,
+        style: FilledButton.styleFrom(
+          shape: const CircleBorder(),
+          fixedSize: const Size.square(72),
+          padding: EdgeInsets.zero,
+        ),
       );
     }
-    return Row(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        IconButton.outlined(
-          tooltip: 'Remove one ${product.name}',
-          onPressed: () => cart.remove(product),
-          icon: Icon(quantity == 1 ? Icons.delete_outline : Icons.remove),
+    // Same height as the circle so the card doesn't jump, pinned to the bottom.
+    return SizedBox(
+      height: 72,
+      child: Align(
+        alignment: Alignment.bottomCenter,
+        widthFactor: 1,
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            IconButton.outlined(
+              tooltip: 'Remove one ${product.name}',
+              onPressed: () => cart.remove(product),
+              icon: Icon(Icons.remove),
+            ),
+            SizedBox(
+              width: 32,
+              child: Text(
+                '$quantity',
+                textAlign: TextAlign.center,
+                style: Theme.of(context).textTheme.titleMedium,
+              ),
+            ),
+            IconButton.filledTonal(
+              tooltip: 'Add one ${product.name}',
+              onPressed: () => cart.add(product),
+              icon: const Icon(Icons.add),
+            ),
+          ],
         ),
-        SizedBox(
-          width: 32,
-          child: Text(
-            '$quantity',
-            textAlign: TextAlign.center,
-            style: Theme.of(context).textTheme.titleMedium,
-          ),
-        ),
-        IconButton.filledTonal(
-          tooltip: 'Add one ${product.name}',
-          onPressed: () => cart.add(product),
-          icon: const Icon(Icons.add),
-        ),
-      ],
+      ),
     );
   }
 }

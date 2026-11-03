@@ -27,9 +27,27 @@ class App extends StatelessWidget {
         child: MaterialApp.router(
           title: 'Checkout',
           theme: ThemeData(
-            colorScheme: .fromSeed(seedColor: Colors.deepPurple),
+            colorScheme: ColorScheme.fromSeed(seedColor: Colors.orange),
+            appBarTheme: AppBarTheme(
+              backgroundColor: Colors.grey,
+              centerTitle: true,
+              titleTextStyle: TextStyle(
+                fontSize: 26,
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+              ),
+            ),
+            scaffoldBackgroundColor: Colors.grey,
           ),
           routerConfig: router,
+          // Same grey as the scaffold so the side gutters blend in.
+          builder: (context, child) => ColoredBox(
+            color: Colors.grey,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 64),
+              child: child,
+            ),
+          ),
         ),
       ),
     );
