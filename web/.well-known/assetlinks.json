@@ -1,0 +1,12 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.example.checkout",
+      "sha256_cert_fingerprints": [
+        "A3:45:AB:77:5C:D5:C4:75:0D:B6:BB:66:D9:A9:62:F9:D5:EE:28:ED:45:7B:1C:CF:ED:C2:CE:66:F5:B5:E3:85"
+      ]
+    }
+  }
+]
