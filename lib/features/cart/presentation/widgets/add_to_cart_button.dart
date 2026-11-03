@@ -4,7 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../catalog/domain/entities/product.dart';
 import '../bloc/cart_cubit.dart';
 
-/// "Add" button that turns into a − qty + stepper once the product is in the cart.
 class AddToCartButton extends StatelessWidget {
   const AddToCartButton({super.key, required this.product});
 
@@ -28,7 +27,7 @@ class AddToCartButton extends StatelessWidget {
         ),
       );
     }
-    // Same height as the circle so the card doesn't jump, pinned to the bottom.
+
     return SizedBox(
       height: 72,
       child: Align(

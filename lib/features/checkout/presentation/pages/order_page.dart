@@ -11,7 +11,7 @@ import '../../data/repositories/checkout_repository_impl.dart';
 import '../../domain/entities/order.dart';
 import '../bloc/order_bloc.dart';
 
-// ponytail: hardcoded saved cards; load from the payment provider once one exists.
+// hardcoded saved cards; load from the payment provider once one exists.
 const _savedCards = [
   (token: 'tok_visa_4242', label: 'Visa •••• 4242'),
   (token: 'tok_declined', label: 'Mastercard •••• 0002 (declines)'),
@@ -105,7 +105,6 @@ class _OrderDetailsState extends State<_OrderDetails> {
           OrderStatus.expired => [
             const _Outcome(Icons.timer_off, 'This order has expired'),
           ],
-          // Card details are hidden while paying, so nothing can be resubmitted.
           OrderStatus.processing => processing,
           _ when paying => processing,
           OrderStatus.pending || OrderStatus.failed => [
@@ -125,7 +124,6 @@ class _OrderDetailsState extends State<_OrderDetails> {
             const SizedBox(height: 16),
             DropdownButtonFormField<String>(
               initialValue: _cardToken,
-              // Dark menu so the white card labels stay readable.
               dropdownColor: Colors.grey.shade800,
               decoration: const InputDecoration(
                 border: OutlineInputBorder(),
@@ -143,7 +141,6 @@ class _OrderDetailsState extends State<_OrderDetails> {
               onPressed: _cardToken == null
                   ? null
                   : () {
-                      // The order holds the items now, so the cart can go.
                       context.read<CartCubit>().clear();
                       context.read<OrderBloc>().add(PayPressed(_cardToken!));
                     },

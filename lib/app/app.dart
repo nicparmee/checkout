@@ -18,7 +18,6 @@ class App extends StatelessWidget {
     return RepositoryProvider(
       create: (_) =>
           GraphQLClient(link: LocalLink(prefs), cache: GraphQLCache()),
-      // Above the router so app-wide state outlives page navigation.
       child: MultiBlocProvider(
         providers: [
           BlocProvider(create: (_) => CartCubit()),
@@ -40,7 +39,6 @@ class App extends StatelessWidget {
             scaffoldBackgroundColor: Colors.grey,
           ),
           routerConfig: router,
-          // Same grey as the scaffold so the side gutters blend in.
           builder: (context, child) => ColoredBox(
             color: Colors.grey,
             child: Padding(

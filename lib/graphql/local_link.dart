@@ -5,7 +5,6 @@ import 'package:gql/ast.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 /// Resolves GraphQL operations in-app instead of over HTTP.
-/// Swap for HttpLink (or Link.split) when a real server exists.
 class LocalLink extends Link {
   LocalLink(
     this._prefs, {
@@ -22,8 +21,6 @@ class LocalLink extends Link {
   static const _orderTtl = Duration(minutes: 2);
   static const _declinedToken = 'tok_declined';
 
-  // ponytail: returns whole objects regardless of the selected fields;
-  // fine while queries ask for everything, add field filtering if that changes.
   @override
   Stream<Response> request(Request request, [NextLink? forward]) async* {
     final name = request.operation.document.definitions
@@ -54,14 +51,12 @@ class LocalLink extends Link {
     }
   }
 
-  // ponytail: orders persist in this device's prefs, standing in for a
+  // orders persist in this device's prefs, standing in for a
   // database; they vanish with the browser's site data.
   Map<String, dynamic>? _order(String id) {
     final json = _prefs.getString('order:$id');
     if (json == null) return null;
     final order = jsonDecode(json) as Map<String, dynamic>;
-    // Settling and expiry are applied on read, so no background job is needed
-    // and a payment still completes if the tab closed mid-way.
     if (order['status'] == 'PROCESSING' &&
         !_now().isBefore(DateTime.parse(order['processingUntil'] as String))) {
       _settle(order);
@@ -76,7 +71,6 @@ class LocalLink extends Link {
   Map<String, dynamic> _createOrder(Map<String, dynamic> vars) {
     final items = (vars['items'] as List).cast<Map<String, dynamic>>();
     if (items.isEmpty) throw 'Order has no items';
-    // Priced from the server's own catalog; the client never sends prices.
     var total = 0;
     for (final item in items) {
       final product = _products
@@ -119,7 +113,6 @@ class LocalLink extends Link {
       ..['outcome'] = cardToken == _declinedToken ? 'FAILED' : 'PAID';
     _save(order);
     await Future<void>.delayed(paymentDelay);
-    // A read during the delay may already have settled it.
     final current = _order(id)!;
     if (current['status'] == 'PROCESSING') _settle(current);
     return current;
@@ -141,23 +134,23 @@ class LocalLink extends Link {
 const _products = [
   {
     'id': '1',
-    'name': 'Classic Tee',
-    'description': 'Soft cotton t-shirt in a relaxed fit.',
-    'imageUrl': 'https://picsum.photos/seed/tee/400/300',
+    'name': 'Hair cut - quick',
+    'description': 'Buzz cut no fuss.',
+    'imageUrl': 'https://images.unsplash.com/photo-1634480257305-7f4ca3582e6a?w=400&h=300&fit=crop',
     'priceCents': 2500,
   },
   {
     'id': '2',
-    'name': 'Canvas Tote',
-    'description': 'Sturdy everyday bag with an inner pocket.',
-    'imageUrl': 'https://picsum.photos/seed/tote/400/300',
+    'name': 'Perm',
+    'description': 'Sturdy everyday hairstyle',
+    'imageUrl': 'https://images.unsplash.com/photo-1739825353871-2b9c6716142a?w=400&h=300&fit=crop',
     'priceCents': 1800,
   },
   {
     'id': '3',
-    'name': 'Ceramic Mug',
-    'description': 'Holds 350ml. Dishwasher and microwave safe.',
-    'imageUrl': 'https://picsum.photos/seed/mug/400/300',
+    'name': 'Cut and dye',
+    'description': 'Make a new you',
+    'imageUrl': 'https://images.unsplash.com/photo-1605980625982-b128a7e7fde2?w=400&h=300&fit=crop',
     'priceCents': 1200,
   },
 ];

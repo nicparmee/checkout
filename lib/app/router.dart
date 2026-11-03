@@ -7,14 +7,12 @@ import '../features/checkout/presentation/pages/summary_page.dart';
 
 final router = GoRouter(
   initialLocation: '/catalog',
-  // Unknown URLs fall back to the catalog instead of an error screen.
   onException: (_, _, router) => router.go('/catalog'),
   routes: [
     GoRoute(path: '/', redirect: (_, _) => '/catalog'),
     GoRoute(path: '/catalog', builder: (_, _) => const CatalogPage()),
     GoRoute(path: '/summary', builder: (_, _) => const SummaryPage()),
     GoRoute(path: '/sign-in', builder: (_, _) => const SignInPage()),
-    // The id lives in the URL so a refresh/deeplink can reload the order.
     GoRoute(
       path: '/order/:orderId',
       builder: (_, state) =>

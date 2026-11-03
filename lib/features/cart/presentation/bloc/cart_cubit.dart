@@ -4,7 +4,6 @@ import '../../../catalog/domain/entities/product.dart';
 
 typedef CartLine = ({Product product, int quantity});
 
-/// In-memory cart, keyed by product id. Map keeps insertion order for display.
 class CartCubit extends Cubit<Map<String, CartLine>> {
   CartCubit() : super(const {});
 

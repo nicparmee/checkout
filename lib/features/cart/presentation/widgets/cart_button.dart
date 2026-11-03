@@ -4,7 +4,6 @@ import 'package:go_router/go_router.dart';
 
 import '../bloc/cart_cubit.dart';
 
-/// App bar cart icon with an item-count badge.
 class CartButton extends StatelessWidget {
   const CartButton({super.key});
 
